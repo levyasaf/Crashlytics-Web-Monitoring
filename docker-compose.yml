@@ -1,0 +1,10 @@
+dev:
+  build: .
+  ports:
+  - "222:22"
+  - "9001:9001"
+  - "80:80"
+  hostname: cwm
+  environment:
+    RACK_ENV: development
+    SERVICE_80_NAME: cwm_http
