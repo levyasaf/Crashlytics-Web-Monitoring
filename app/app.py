@@ -9,14 +9,11 @@ q = Queue(connection=redis_conn)
 app = Flask(__name__)
 
 @app.route('/cwm', methods=['POST'])
-def sus():
-    #output = request.form["name"]
-    output = request.get_data()
-    print output
-    with open("/tmp/data.txt", "a+") as myfile:
-        myfile.write(output + "\n")
-    job = q.enqueue(hello, output, result_ttl=86400)
-    return jsonify({"job": job.id})
+def get_data():
+    data = request.get_data()
+    print data
+    job = q.enqueue(process_data, data, result_ttl=86400)
+    return jsonify({"job": job.id}), 200
 
 @app.route('/result/<job_id>', methods=['GET'])
 def get_job(job_id):
