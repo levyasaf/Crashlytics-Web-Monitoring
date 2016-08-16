@@ -10,7 +10,7 @@ def process_data(data):
     app_name = dict_obj["payload"]["app"]["name"]
     
     if event_type == "issue_impact_change":
-        with open("/tmp/" + app_name  + ".log", "a+") as myfile:
-            myfile.write(now.strftime("%Y-%m-%d %H:%M") + ";" + app_name + ";" + data + "\n")
+        with open("/tmp/" + app_name  + "_" + now.strftime("%Y-%m-%d") + ".log", "a+") as myfile:
+            myfile.write(now.strftime("%Y-%m-%d %H:%M") + "|" + app_name + "|" + data + "\n")
     r = requests.post("http://sears-searsi.rhcloud.com/crashlytics", data=json.dumps(data))
     return 
